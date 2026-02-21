@@ -17,4 +17,7 @@ public class InventoryService {
     public List<Inventory> search(InventorySearchDTO dto) {
         return repository.findAll(InventorySpecification.filter(dto));
     }
+
+    public Inventory save(Inventory inventory) {
+        return repository.save(inventory); }
 }
