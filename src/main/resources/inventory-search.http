@@ -1,0 +1,9 @@
+### Search Inventory
+POST http://localhost:8080/api/inventories/search
+Content-Type: application/json
+
+{
+  "name": "Laptop",
+  "category": "Electronics",
+  "location": "Delhi"
+}
