@@ -20,4 +20,8 @@ public class InventoryService {
 
     public Inventory save(Inventory inventory) {
         return repository.save(inventory); }
+
+    public Inventory findById(Long id) {
+        return repository.findById(id).get();
+    }
 }

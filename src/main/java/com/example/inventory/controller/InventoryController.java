@@ -5,10 +5,7 @@ import com.example.inventory.model.Inventory;
 import com.example.inventory.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,12 +16,16 @@ public class InventoryController {
     @Autowired
     private InventoryService service;
 
-    // Existing search endpoint
-    @PostMapping("/search")
-    public ResponseEntity<List<Inventory>> search(@RequestBody InventorySearchDTO dto) {
-        List<Inventory> results = service.search(dto);
-        return ResponseEntity.ok(results);
+    @GetMapping("/{id}")
+    public ResponseEntity<Inventory> getInventoryById(@PathVariable Long id) {
+        Inventory inventory = service.findById(id);
+        if (inventory != null) {
+            return ResponseEntity.ok(inventory);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
     // NEW: Save inventory endpoint
     @PostMapping("/save")
@@ -32,5 +33,14 @@ public class InventoryController {
         Inventory saved = service.save(inventory);
         return ResponseEntity.ok(saved);
     }
+
+
+    // Existing search endpoint
+    @GetMapping("/search")
+    public ResponseEntity<List<Inventory>> search(@RequestBody InventorySearchDTO dto) {
+        List<Inventory> results = service.search(dto);
+        return ResponseEntity.ok(results);
+    }
+
 }
 
